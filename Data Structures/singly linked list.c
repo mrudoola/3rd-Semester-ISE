@@ -5,41 +5,41 @@ struct node
 	int data;
 	struct node *link;
 };
-struct node*start=NULL,*cur=NULL,*temp=NULL,*ptr=NULL;
-void insertbeg()
+struct node*start=NULL,*temp=NULL,*ptr=NULL;
+void insertBegin()
+{
+	temp=(struct node*)malloc(sizeof(struct node));
+	printf("Enter the data:");
+	scanf("%d",&temp->data);
+	temp->link=NULL;
+	if(start==NULL)
+		start=temp;
+	else
+	{
+		temp->link=start;
+		start=temp;
+	}
+}
+void insertEnd()
 {
 temp=(struct node*)malloc(sizeof(struct node));
-printf("enter the data");
+printf("Enter the data:");
 scanf("%d",&temp->data);
 temp->link=NULL;
 if(start==NULL)
-start=temp;
-else
-{
-	temp->link=start;
 	start=temp;
-}
-}
-void insertend()
-{
-temp=(struct node*)malloc(sizeof(struct node));
-printf("enter the data");
-scanf("%d",&temp->data);
-temp->link=NULL;
-if(start==NULL)
-start=temp;
 else
 {
 ptr=start;
 while(ptr->link!=NULL)
-{
-ptr=ptr->link;
-}
-ptr->link=temp;
+	{
+		ptr=ptr->link;
+	}
+	ptr->link=temp;
 }
 }
 
-void loc_based()
+void insertAny()
 {
 int count=0,pos,i;
 ptr=start;
@@ -48,11 +48,11 @@ while(ptr!=NULL)
 count++;
 ptr=ptr->link;
 }
-printf("enter the position\n");
+printf("Enter the position:");
 scanf("%d",&pos);
 if(pos==1)
 {
-insertbeg();
+insertBegin();
 }
 else if(pos>1 && pos<=count)
 {
@@ -70,7 +70,7 @@ ptr->link=temp;
 }
 else if(pos=count+1)
 {
-insertend();
+	insertEnd();
 }
 else
 {
@@ -78,18 +78,18 @@ printf("invalid");
 }
 }
 
-void deletebeg()
+void deleteBegin()
 {
 ptr=start;
 if(start==NULL)
-printf("empty");
+printf("List is empty");
 else
 {
 start=start->link;
 free(ptr);
 }
 }
-void deleteend()
+void deleteEnd()
 {
 ptr=start;
 while(ptr->link!=NULL)
@@ -100,7 +100,7 @@ ptr=ptr->link;
 temp->link=NULL;
 free(ptr);
 }
-void del_any()
+void deleteAny()
 {
 	int count=0,pos,i;
 	ptr=start;
@@ -109,11 +109,11 @@ void del_any()
 		count++;
 		ptr=ptr->link;
 	}
-	printf("enter the pos\n");
+	printf("Enter the position:");
 	scanf("%d",&pos);
 	if(pos==1)
 	{
-	deletebeg();
+		deleteBegin();
 	}
 	else if(pos>1 && pos<=count)
 	{
@@ -127,17 +127,17 @@ void del_any()
 	}
 	else if(pos=count+1)
 	{
-		deleteend();
+		deleteEnd();
 	}
 	else
 	{
-	printf("wrong choice");
+		printf("Wrong choice");
 	}
 }
 void display()
 {
 if(start==NULL)
-printf("list is empty");
+printf("List is empty");
 else
 {
 ptr=start;
@@ -153,25 +153,25 @@ void main()
 int ch;
 while(1)
 {
-printf("1. insert in beg\n 2.display\n 3.insert in the end\n 4. insert anywhere\n 5.delete from the beg\n 6. delete from the end\n 7. delete from anywhere\n");
-printf("enter the choice");
-scanf("%d",&ch);
-switch(ch)
-{
-case 1:insertbeg();
+printf("\n1.Insert Begin\n2.Display\n3.Insert in the end\n4.Insert in any loaction\n5.Delete Begin\n6.Delete from the end\n7.Delete from any loation\n");
+	printf("Enter the choice:");
+	scanf("%d",&ch);
+	switch(ch)
+	{
+case 1:insertBegin();
+	break;
+case 2:display();
 break;
-case 2: display();
+case 3:insertEnd();
 break;
-case 3: insertend();
+case 4:insertAny();
+	break;
+case 5:deleteBegin();
 break;
-case 4: loc_based();
+case 6:deleteEnd();
 break;
-case 5: deletebeg();
-break;
-case 6: deleteend();
-break;
-case 7: del_any();
-break;
+case 7:deleteAny();
+	break;
 default: exit(0); 
 }
 }
